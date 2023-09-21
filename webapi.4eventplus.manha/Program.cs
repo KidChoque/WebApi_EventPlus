@@ -51,8 +51,8 @@ builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "API Inlock",
-        Description = "API para gerenciamento de Jogos",
+        Title = "API Event+",
+        Description = "API para gerenciamento de Eventos",
 
         Contact = new OpenApiContact
         {
