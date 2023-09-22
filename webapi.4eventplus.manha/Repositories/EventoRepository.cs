@@ -17,6 +17,15 @@ namespace webapi._4eventplus.manha.Repositories
         {
             Evento eventoBuscado = _eventContext.Evento.Find(id);
 
+            if (eventoBuscado != null)
+            {
+                eventoBuscado.NomeEvento = evento.NomeEvento;
+                eventoBuscado.DataEvento = evento.DataEvento;
+                eventoBuscado.Descricao = evento.Descricao;
+                eventoBuscado.IdTipoEvento = evento.IdTipoEvento;
+                eventoBuscado.TiposEvento= evento.TiposEvento;
+            }
+
             _eventContext.Evento.Update(eventoBuscado);
 
             _eventContext.SaveChanges();
@@ -24,7 +33,20 @@ namespace webapi._4eventplus.manha.Repositories
 
         public Evento BuscarPorId(Guid id)
         {
-            Evento eventoBuscado = _eventContext.Evento.Find(id);
+            Evento eventoBuscado = _eventContext.Evento.
+                Select(u => new Evento
+                {
+                    IdEvento = u.IdEvento,
+                    NomeEvento = u.NomeEvento,
+                    Descricao = u.Descricao,
+                    DataEvento = u.DataEvento,
+                    TiposEvento = new TiposEvento
+                    {
+                        IdTipoEvento = u.IdTipoEvento,
+                        Titulo = u.TiposEvento.Titulo
+                    }
+
+                }).FirstOrDefault(u=> u.IdEvento == id)!;
 
             return eventoBuscado;
         }

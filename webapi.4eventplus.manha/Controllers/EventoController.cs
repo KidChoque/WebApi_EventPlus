@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using webapi._4eventplus.manha.Domains;
 using webapi._4eventplus.manha.Interfaces;
 using webapi._4eventplus.manha.Repositories;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace webapi._4eventplus.manha.Controllers
 {
@@ -47,8 +48,34 @@ namespace webapi._4eventplus.manha.Controllers
             
         }
 
-        
+        [HttpGet("{id}")]
+        public IActionResult GetById(Guid id)
+        {
+            try
+            {
+                return Ok(_eventoRepository.BuscarPorId(id));
+            }
+            catch (Exception e)
+            {
 
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut]
+        public IActionResult Update(Guid id,Evento evento)
+        {
+            try
+            {
+                _eventoRepository.Atualizar(id, evento);
+                return NoContent();
+            }
+            catch (Exception e)
+            {
+
+                return BadRequest(e.Message);
+            }
+        }
 
 
     }
