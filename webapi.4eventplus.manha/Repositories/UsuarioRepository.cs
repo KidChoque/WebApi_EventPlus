@@ -64,7 +64,7 @@ namespace webapi._4eventplus.manha.Repositories
                             IdTipoUsuario = u.IdTipoUsuario,
                             Titulo = u.TiposUsuario.Titulo
                         }
-                    }).FirstOrDefault(u => u.IdUsuario == id);
+                    }).FirstOrDefault(u => u.IdUsuario == id)!;
 
                 if (usuarioBuscado == null)
                 {
